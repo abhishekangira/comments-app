@@ -1,0 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: inherit;
+}
+
+body {
+  background: #f5fcff;
+  font-family: Calibri, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: .6rem;
+}
