@@ -1,6 +1,11 @@
-import { newCCNode, addReply, deleteComment, editComment, getRandomColor, lastId } from "./lib.js";
-
-const $$ = console.log;
+import {
+  newCCNode,
+  addReply,
+  deleteComment,
+  editComment,
+  getRandomColor,
+  lastId
+} from "./lib.js";
 
 const template = document.createElement("template");
 template.innerHTML = /*template*/ `
@@ -91,7 +96,10 @@ class Comment extends HTMLElement {
 
   replyColorChooser() {
     let color = getRandomColor();
-    if (color === this.getAttribute("color") || color === this.$parent.getAttribute("color"))
+    if (
+      color === this.getAttribute("color") ||
+      color === this.$parent.getAttribute("color")
+    )
       return this.replyColorChooser();
     else this.replyColor = color;
   }
@@ -106,8 +114,14 @@ class Comment extends HTMLElement {
     // Event listeners
     this.$replyBtn.addEventListener("click", this.replyBtnHandler.bind(this));
     this.$deleteBtn.addEventListener("click", this.deleteBtnHandler.bind(this));
-    this.$showRepliesBtn.addEventListener("click", this.showRepliesHandler.bind(this));
-    this.$addReplyBtn.addEventListener("click", this.addReplyHandler.bind(this));
+    this.$showRepliesBtn.addEventListener(
+      "click",
+      this.showRepliesHandler.bind(this)
+    );
+    this.$addReplyBtn.addEventListener(
+      "click",
+      this.addReplyHandler.bind(this)
+    );
     this.$addReplyInp.addEventListener("keydown", (event) => {
       if (event.keyCode === 13) this.addReplyHandler();
     });
@@ -120,7 +134,9 @@ class Comment extends HTMLElement {
     // Set Text
     this.$commentText.innerText = this.getAttribute("text");
     this.$showRepliesBtn.innerText =
-      this.noOfReplies == 1 ? `⏷ Show reply` : `⏷ Show ${this.noOfReplies} replies`;
+      this.noOfReplies == 1
+        ? `⏷ Show reply`
+        : `⏷ Show ${this.noOfReplies} replies`;
     this.$editInp.value = this.getAttribute("text");
 
     // Styling
@@ -145,8 +161,14 @@ class Comment extends HTMLElement {
   }
 
   disconnectedCallback() {
-    this.$replyBtn.removeEventListener("click", this.replyBtnHandler.bind(this));
-    this.$deleteBtn.removeEventListener("click", this.deleteBtnHandler.bind(this));
+    this.$replyBtn.removeEventListener(
+      "click",
+      this.replyBtnHandler.bind(this)
+    );
+    this.$deleteBtn.removeEventListener(
+      "click",
+      this.deleteBtnHandler.bind(this)
+    );
   }
 
   // Event handlers
@@ -175,7 +197,7 @@ class Comment extends HTMLElement {
       this.replies.push({
         id: lastId,
         text: this.$addReplyInp.value,
-        replies: [],
+        replies: []
       });
       let commentCard = newCCNode(this.$addReplyInp.value, [], lastId);
       commentCard.setAttribute("color", this.replyColor);
@@ -186,8 +208,12 @@ class Comment extends HTMLElement {
       if (this.$showRepliesBtn.innerText.includes("Show")) {
         commentCard.style.display = "none";
         this.$showRepliesBtn.innerText =
-          this.noOfReplies == 1 ? `⏷ Show reply` : `⏷ Show ${this.noOfReplies} replies`;
-      } else this.$showRepliesBtn.innerText = this.noOfReplies > 1 ? `⏶ Hide replies` : `⏶ Hide reply`;
+          this.noOfReplies == 1
+            ? `⏷ Show reply`
+            : `⏷ Show ${this.noOfReplies} replies`;
+      } else
+        this.$showRepliesBtn.innerText =
+          this.noOfReplies > 1 ? `⏶ Hide replies` : `⏶ Hide reply`;
       this.$repliesDiv.appendChild(commentCard);
     }
   }
@@ -200,11 +226,14 @@ class Comment extends HTMLElement {
     this.setAttribute("renderrepliesflag", "1");
     if (this.$showRepliesBtn.innerText.includes("⏷")) {
       this.$repliesDiv.style.display = "block";
-      this.$showRepliesBtn.innerText = this.noOfReplies > 1 ? `⏶ Hide replies` : `⏶ Hide reply`;
+      this.$showRepliesBtn.innerText =
+        this.noOfReplies > 1 ? `⏶ Hide replies` : `⏶ Hide reply`;
     } else {
       this.$repliesDiv.style.display = "none";
       this.$showRepliesBtn.innerText =
-        this.noOfReplies == 1 ? `⏷ Show reply` : `⏷ Show ${this.noOfReplies} replies`;
+        this.noOfReplies == 1
+          ? `⏷ Show reply`
+          : `⏷ Show ${this.noOfReplies} replies`;
     }
   }
 
