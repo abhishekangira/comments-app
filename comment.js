@@ -155,7 +155,7 @@ class Comment extends HTMLElement {
     this.$parent.setAttribute("noofreplies", --this.$parent.noOfReplies);
     this.remove();
   }
-
+  
   replyBtnHandler() {
     if (this.$replyBtn.innerText === "Reply") {
       this.$addReplyDiv.style.display = "block";
